@@ -1,0 +1,49 @@
+{% load static %}
+<title>Account - Task Manager</title>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav class="col-md-2 d-none d-md-block sidebar bg-dark">
+        <div class="sidebar-sticky p-3">
+            <h4 class="text-white">Menu</h4>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{% url 'task_list' %}">⬛ Task List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{% url 'add_task' %}">➕ Add Task</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="/auth/account">👤 Account</a>
+                </li>
+                {% if user.is_superuser %}
+                    <br>
+                    <h4 class="text-white">Admin panel</h4>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'event_list' %}">⬛ Log</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'project_list' %}">⚫ Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'type_list' %}">⚫ Types</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'status_list' %}">⚫ Statuses</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="card">
+            <h2>Welcome, {{ request.user.first_name | default:"Admin" }}</h2>
+            <div class="btn-container">
+                <a href="{% url 'auth:logout' %}" class="btn btn-primary btn-custom">Edit profile</a>
+                <a href="{% url 'auth:logout' %}" class="btn btn-logout btn-custom">Log Out</a>
+            </div>
+        </div>
+    </div>    
+</body>

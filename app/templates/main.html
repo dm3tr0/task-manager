@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            {% if user.is_authenticated %}
+                <h2>Welcome to Task Manager</h2>
+                <a href="/task_list" class="btn btn-primary">View Task List</a>
+                <a href="/add_task" class="btn btn-success">Add Task</a>
+                <a href="/auth/account" class="btn btn-info">Account</a>
+            {% else %}
+                <h2>Please Log In</h2>
+                <p>You must be logged in to view tasks.</p>
+                <a href="/auth/login" class="btn btn-warning">Login</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

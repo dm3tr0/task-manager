@@ -1,0 +1,161 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav class="col-md-2 d-none d-md-block sidebar bg-dark">
+        <div class="sidebar-sticky p-3">
+            <h4 class="text-white">Menu</h4>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{% url 'task_list' %}">⬛ Task List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{% url 'add_task' %}">➕ Add Task</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="/auth/account">👤 Account</a>
+                </li>
+                {% if user.is_superuser %}
+                    <br>
+                    <h4 class="text-white">Admin panel</h4>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'event_list' %}">⬛ Log</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'project_list' %}">⚫ Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'type_list' %}">⚫ Types</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'status_list' %}">⚫ Statuses</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="card p-4">
+            <h1 class="bg-dark text-white text-center p-4 rounded">Edit Task</h1>
+            <hr>
+            <form method="POST">
+                {% csrf_token %}
+                
+                <!-- Name & Project in One Row -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ task_form.name.label_tag }}
+                            {{ task_form.name }}
+                            {% if task_form.name.errors %}
+                                <small class="text-danger">{{ task_form.name.errors.0 }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ task_form.project.label_tag }}
+                            {{ task_form.project }}
+                            {% if task_form.project.errors %}
+                                <small class="text-danger">{{ task_form.project.errors.0 }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description Takes Full Row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ task_form.description.label_tag }}
+                            {{ task_form.description }}
+                            {% if task_form.description.errors %}
+                                <small class="text-danger">{{ task_form.description.errors.0 }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status & Type in One Row -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ task_form.status.label_tag }}
+                            {{ task_form.status }}
+                            {% if task_form.status.errors %}
+                                <small class="text-danger">{{ task_form.status.errors.0 }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ task_form.type.label_tag }}
+                            {{ task_form.type }}
+                            {% if task_form.type.errors %}
+                                <small class="text-danger">{{ task_form.type.errors.0 }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Start & End Dates in One Row -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ task_form.start.label_tag }}
+                            {{ task_form.start }}
+                            {% if task_form.start.errors %}
+                                <small class="text-danger">{{ task_form.start.errors.0 }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ task_form.end.label_tag }}
+                            {{ task_form.end }}
+                            {% if task_form.end.errors %}
+                                <small class="text-danger">{{ task_form.end.errors.0 }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ task_form.plan_time.label_tag }}
+                            {{ task_form.plan_time }}
+                            {% if task_form.plan_time.errors %}
+                                <small class="text-danger">{{ task_form.staplan_timert.errors.0 }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ task_form.implementer.label_tag }}
+                            {{ task_form.implementer }}
+                            {% if task_form.implementer.errors %}
+                                <small class="text-danger">{{ task_form.implementer.errors.0 }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a href="{% url 'register_time' task.id %}" class="btn btn-success">Register Time</a>
+                    <a href="{% url 'task_delete' task.id %}" class="btn btn-danger">Delete</a>
+                    <a href="{% url 'task_detail' task.id  %}" class="btn btn-secondary">Go back to task</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

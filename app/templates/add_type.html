@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Type</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <nav class="col-md-2 d-none d-md-block sidebar bg-dark">
+        <div class="sidebar-sticky p-3">
+            <h4 class="text-white">Menu</h4>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{% url 'task_list' %}">⬛ Task List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{% url 'add_task' %}">➕ Add Task</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="/auth/account">👤 Account</a>
+                </li>
+                {% if user.is_superuser %}
+                    <br>
+                    <h4 class="text-white">Admin panel</h4>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'event_list' %}">⬛ Log</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'project_list' %}">⚫ Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'type_list' %}">⚫ Types</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'status_list' %}">⚫ Statuses</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="card p-4">
+            <h2 class="text-center">Add Type</h2>
+            <hr>
+            <form action="" method="POST">
+                {% csrf_token %}
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ type_form.name.label_tag }}
+                            {{ type_form.name }}
+                            {% if type_form.name.errors %}
+                                <small class="text-danger">{{ type_form.name.errors.0 }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ type_form.description.label_tag }}
+                            {{ type_form.description }}
+                            {% if type_form.description.errors %}
+                                <small class="text-danger">{{ type_form.description.errors.0 }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Add Type</button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</body>
+</html>
